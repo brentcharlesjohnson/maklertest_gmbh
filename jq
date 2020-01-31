@@ -1,0 +1,1 @@
+{"couchdb":"Welcome","version":"2.3.1","git_sha":"c298091a4","uuid":"6f0e188530d9b6a59b55f528b9937a85","features":["pluggable-storage-engines","scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
