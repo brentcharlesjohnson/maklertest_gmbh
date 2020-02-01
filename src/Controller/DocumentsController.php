@@ -114,5 +114,6 @@ class DocumentsController extends AppController
      */
     public function isAuthorized($user) {
         // implement this to restrict access to documents created by primary user
+        return True;
     }
 }
