@@ -60,8 +60,8 @@ class DocumentsController extends AppController
             }
             $this->Flash->error(__('The document could not be saved. Please, try again.'));
         }
-        $users = $this->Documents->Users->find('list', ['limit' => 200]);
-        $this->set(compact('document', 'users'));
+        $user_id = $this->Auth->user('id');
+        $this->set(compact('document', 'user_id'));
     }
 
     /**
