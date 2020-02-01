@@ -53,6 +53,7 @@ class AppController extends Controller
         //$this->loadComponent('Security');
         
         $this->loadComponent('Auth', [
+            'authorize' => 'Controller',
             'authenticate' => [
                 'form' => [
                     'fields' => [
@@ -69,5 +70,15 @@ class AppController extends Controller
         ]);
 
         $this->Auth->allow(['display']);
+    }
+
+    /**
+     * isAuthorized method
+     */
+    public function isAuthorized($user) {
+        // default to deny access
+        // return False;
+        // but for now allow access until documents can be uploaded
+        return True;
     }
 }

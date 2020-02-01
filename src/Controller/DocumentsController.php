@@ -108,4 +108,11 @@ class DocumentsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * isAuthorized method
+     */
+    public function isAuthorized($user) {
+        // implement this to restrict access to documents created by primary user
+    }
 }
