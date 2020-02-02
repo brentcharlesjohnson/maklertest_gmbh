@@ -8,6 +8,7 @@ use Cake\Validation\Validator;
 use Cake\Event\Event;
 use ArrayObject;
 use Cake\ORM\Entity;
+use Cake\Filesystem\File;
 
 /**
  * Documents Model
@@ -142,5 +143,20 @@ class DocumentsTable extends Table
             return false;
         }
         //$event->stopPropagation();
+    }
+
+    /**
+     * beforeDelete remove the file from its location in the file system
+     * before removing file metadata from documents table
+     *
+     * @return null|false
+     */
+    public function beforeDelete(Event $event, Entity $entity, ArrayObject $options) 
+    {
+        $file = new File($entity['path']);
+        if(!$file->delete())
+        {
+            return false;
+        }
     }
 }
