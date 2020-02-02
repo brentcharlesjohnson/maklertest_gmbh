@@ -78,7 +78,6 @@ class AppController extends Controller
     public function isAuthorized($user) {
         // default to deny access
         // return False;
-        // but for now allow access until documents can be uploaded
-        return True;
+        return False;
     }
 }
