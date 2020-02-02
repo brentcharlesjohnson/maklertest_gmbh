@@ -19,12 +19,17 @@
         <?php
             echo $this->Form->control('user_id', ['type' => 'hidden', 'value' => $user_id]);
             echo $this->Form->control('name', [
+                'required' => False, 
+                'label' => 'Name, if blank uploaded filename will be used'
+            ]);
+            echo $this->Form->control('file', [
+                'required' => true,
                 'type' => 'file', 
                 'options' => [
                     'accept' => '.docx, .doc, .xml, .pdf, .xls, .xlsx'
                 ]
             ]);
-            echo $this->Form->control('description', ['label' => 'Optional Description']);
+            echo $this->Form->control('description', ['label' => 'Description, optional']);
             //echo $this->Form->control('type');
             //echo $this->Form->control('path');
             //echo $this->Form->control('size');
