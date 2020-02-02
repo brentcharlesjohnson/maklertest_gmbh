@@ -5,6 +5,9 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Event\Event;
+use ArrayObject;
+use Cake\ORM\Entity;
 
 /**
  * Documents Model
@@ -101,5 +104,43 @@ class DocumentsTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;
+    }
+
+    /**
+     * beforeMarshall triggered before the validation process
+     * this will be fired by the call to patchEntity() in the controller
+     * calculates model fields size, type, and optionally name from uploaded file data
+     */
+    public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options)
+    {
+        if(isset($data['file']))
+        {
+            if(empty($data['name'])) 
+            {
+                $data['name'] = $data['file']['name'];
+            }
+            $data['type'] = $data['file']['type'];
+            $data['size'] = $data['file']['size'];
+            $data['path'] = $data['file']['tmp_name'];
+        }
+    }
+
+    /**
+     * beforeSave persists the temporary file to the file system at the destination
+     * before persisting file metadata to Documents table
+     *
+     * @return null|false
+     */
+    public function beforeSave(Event $event, Entity $entity, ArrayObject $options) 
+    {
+        $destination = WWW_ROOT . 'files/' . $entity['name'];
+        if(move_uploaded_file($entity['path'], $destination)) 
+        {
+            $entity['path'] = $destination;
+        } else 
+        {
+            return false;
+        }
+        //$event->stopPropagation();
     }
 }
