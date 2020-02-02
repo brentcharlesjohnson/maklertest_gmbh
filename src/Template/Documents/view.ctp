@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($document->name) ?></td>
+            <td><?= $this->Html->link($document->name, '/files/' . $document->name, ['download' => $document->name]) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Description') ?></th>

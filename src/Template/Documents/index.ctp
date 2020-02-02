@@ -35,7 +35,7 @@
                 <td><?= $this->Number->format($document->id) ?></td>
                 <td><?= $document->has('user') ? $this->Html->link($document->user->id, ['controller' => 'Users', 'action' => 'view', $document->user->id]) : '' ?></td>
                 <td><?= h($document->type) ?></td>
-                <td><?= h($document->name) ?></td>
+                <td><?= $this->Html->link($document->name, '/files/' . $document->name, ['download' => $document->name]) ?></td>
                 <td><?= h($document->description) ?></td>
                 <td><?= h($document->path) ?></td>
                 <td><?= $this->Number->format($document->size) ?></td>
