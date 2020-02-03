@@ -58,7 +58,7 @@ class DocumentsController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The document could not be saved. Please, try again.'));
+            $this->Flash->error(__('The document could not be saved. Please, check if the file name is already in use.'));
         }
         $user_id = $this->Auth->user('id');
         $this->set(compact('document', 'user_id'));

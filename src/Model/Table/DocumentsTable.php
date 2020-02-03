@@ -140,7 +140,8 @@ class DocumentsTable extends Table
         $safe_name = $dest->safe() . ($dest->ext() ?: $dest->ext());
         if ($safe_name != $dest->name)
         {
-            $dest->name = $dest->safe();
+            $dest->name = $safe_name;
+            $dest->path = $dest->folder()->path . DS . $dest->name;
         }
 
         //check mime type
@@ -148,16 +149,17 @@ class DocumentsTable extends Table
         {
             $mimes = new \Mimey\MimeTypes;
             $dest->name = $dest->name() . '.' . $mimes->getExtension($entity['type']);
+            $dest->path = $dest->folder()->path . DS . $dest->name;
         }
 
-        //check if unique
+        // ensure file does not exist
         if($dest->exists())
         {
-           return false; 
+            return false; 
         } 
 
         // save the temp file to filesystem at destination
-        if(move_uploaded_file($entity['path'], $dest->folder()->path . DS . $dest->name)) 
+        if(move_uploaded_file($entity['path'], $dest->path)) 
         {
             $entity['path'] = $dest->name;
         } else 
