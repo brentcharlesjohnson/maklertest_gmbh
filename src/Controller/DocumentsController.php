@@ -65,31 +65,6 @@ class DocumentsController extends AppController
     }
 
     /**
-     * Edit method
-     *
-     * @param string|null $id Document id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $document = $this->Documents->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $document = $this->Documents->patchEntity($document, $this->request->getData());
-            if ($this->Documents->save($document)) {
-                $this->Flash->success(__('The document has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The document could not be saved. Please, try again.'));
-        }
-        $users = $this->Documents->Users->find('list', ['limit' => 200]);
-        $this->set(compact('document', 'users'));
-    }
-
-    /**
      * Delete method
      *
      * @param string|null $id Document id.
