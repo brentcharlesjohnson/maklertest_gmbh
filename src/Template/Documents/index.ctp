@@ -39,7 +39,7 @@
                 <td><?= h($document->created) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $document->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $document->id], ['confirm' => __('Are you sure you want to delete # {0}?', $document->id)]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $document->id], ['confirm' => __('Are you sure you want to delete {0}?', $document->name)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
