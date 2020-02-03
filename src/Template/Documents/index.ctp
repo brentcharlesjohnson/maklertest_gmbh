@@ -31,7 +31,7 @@
             <tr>
                 <td><?= $this->Number->format($document->id) ?></td>
                 <td><?= h($document->type) ?></td>
-                <td><?= $this->Html->link($document->name, '/files/' . $document->name, ['download' => $document->name]) ?></td>
+                <td><?= $this->Html->link($document->name, DS . 'files' . DS . $document->path, ['download' => $document->path]) ?></td>
                 <td><?= h($document->description) ?></td>
                 <td><?= h($document->path) ?></td>
                 <td><?= $this->Number->format($document->size) ?></td>
