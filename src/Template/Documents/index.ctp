@@ -16,7 +16,6 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('type') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('description') ?></th>
@@ -31,7 +30,6 @@
             <?php foreach ($documents as $document): ?>
             <tr>
                 <td><?= $this->Number->format($document->id) ?></td>
-                <td><?= $document->has('user') ? $this->Html->link($document->user->id, ['controller' => 'Users', 'action' => 'view', $document->user->id]) : '' ?></td>
                 <td><?= h($document->type) ?></td>
                 <td><?= $this->Html->link($document->name, '/files/' . $document->name, ['download' => $document->name]) ?></td>
                 <td><?= h($document->description) ?></td>
@@ -41,7 +39,6 @@
                 <td><?= h($document->created) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $document->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $document->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $document->id], ['confirm' => __('Are you sure you want to delete # {0}?', $document->id)]) ?>
                 </td>
             </tr>

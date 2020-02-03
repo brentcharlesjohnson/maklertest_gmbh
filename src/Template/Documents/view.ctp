@@ -16,10 +16,6 @@
     <h3><?= h($document->name) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= $document->has('user') ? $this->Html->link($document->user->id, ['controller' => 'Users', 'action' => 'view', $document->user->id]) : '' ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Type') ?></th>
             <td><?= h($document->type) ?></td>
         </tr>
