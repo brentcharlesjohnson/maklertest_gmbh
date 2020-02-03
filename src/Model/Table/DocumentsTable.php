@@ -134,10 +134,31 @@ class DocumentsTable extends Table
      */
     public function beforeSave(Event $event, Entity $entity, ArrayObject $options) 
     {
-        $destination = WWW_ROOT . 'files/' . $entity['name'];
-        if(move_uploaded_file($entity['path'], $destination)) 
+        $dest = new File(WWW_ROOT . 'files' . DS . $entity['name']);
+
+        // ensure the filename is safe
+        if ($dest->safe() !== $dest->name)
         {
-            $entity['path'] = $destination;
+            $dest->name = $dest->safe();
+        }
+
+        //check mime type
+        if(!$dest->ext()) 
+        {
+            $mimes = new \Mimey\MimeTypes;
+            $dest->name = $dest->name() . '.' . $mimes->getExtension($entity['type']);
+        }
+
+        //check if unique
+        /* $if($dest->exists())
+        {
+            not implemented
+        } */
+
+        // save the temp file to filesystem at destination
+        if(move_uploaded_file($entity['path'], $dest->folder()->path . DS . $dest->name)) 
+        {
+            $entity['path'] = $dest->name;
         } else 
         {
             return false;
@@ -153,7 +174,7 @@ class DocumentsTable extends Table
      */
     public function beforeDelete(Event $event, Entity $entity, ArrayObject $options) 
     {
-        $file = new File($entity['path']);
+        $file = new File(WWW_ROOT . 'files' . DS . $entity['path']);
         if(!$file->delete())
         {
             return false;
