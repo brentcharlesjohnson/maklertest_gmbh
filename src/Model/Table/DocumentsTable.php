@@ -137,7 +137,8 @@ class DocumentsTable extends Table
         $dest = new File(WWW_ROOT . 'files' . DS . $entity['name']);
 
         // ensure the filename is safe
-        if ($dest->safe() !== $dest->name)
+        $safe_name = $dest->safe() . ($dest->ext() ?: $dest->ext());
+        if ($safe_name != $dest->name)
         {
             $dest->name = $dest->safe();
         }
@@ -150,10 +151,10 @@ class DocumentsTable extends Table
         }
 
         //check if unique
-        /* $if($dest->exists())
+        if($dest->exists())
         {
-            not implemented
-        } */
+           return false; 
+        } 
 
         // save the temp file to filesystem at destination
         if(move_uploaded_file($entity['path'], $dest->folder()->path . DS . $dest->name)) 
